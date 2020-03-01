@@ -1,6 +1,8 @@
+// Somewhat complete, let me know if my codes messy, I always choose python over javascript, as i know I can create a cleaner product faster!
+
 const axios = require('axios');
-const API_KEY = 'eece05e3fbcf1e761c982cbcc3148bf7';
-const TOKEN = 'cbd97c1319aa90c3c254418de55384afb3220187d54b12d91b7dd74c1be45fc4';
+const API_KEY = '';
+const TOKEN = '';
 const AUTH = `key=${API_KEY}&token=${TOKEN}`;
 
 function sleep(ms) {
@@ -12,9 +14,7 @@ function handleErrors(err) {
         case 433:
             return sleep(90000);
         case 401:
-            return err
-        case ''
-        
+            return err        
     }
 };
 
@@ -68,8 +68,8 @@ function updateCards(cards, AUTH) {
 function main(AUTH) {
     // Get users "me" boards and return url's to get all cards
     let boardIds = getBoardIds(AUTH).then(boards => boards.map( boards => `/boards/${boards.id}/cards` ) )
-    let cards = boardIds.then(boardIds => getCards(boardIds, AUTH))
     // Get cards, update them & send them back
+    let cards = boardIds.then(boardIds => getCards(boardIds, AUTH))
     cards.then(cards => updateCards(cards[0]), AUTH)
 };
 
