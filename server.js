@@ -11,7 +11,7 @@ const AUTH = `key=${API_KEY}&token=${TOKEN}`
 
 
 app.use(express.json())
-app.post('/api', (req, res) => console.log(req.body))
+app.post('/api', (req, res) => res.json(req.body))
 
 
 app.listen(port, () => console.log(`Listening on port ${port}!`))
