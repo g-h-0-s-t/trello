@@ -9,9 +9,9 @@ function sleep(ms) {
 
 function handleErrors(err) {
     switch(err.response.status) {
-        case '433':
+        case 433:
             return sleep(90000);
-        case '401':
+        case 401:
             return err
         case ''
         
