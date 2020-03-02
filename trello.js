@@ -82,4 +82,4 @@ function updateCard(AUTH, card) {
 
 module.exports { updateCard,
                  createHook,
-                 start, }
+                 start };
