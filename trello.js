@@ -47,8 +47,12 @@ function updateCards(cards, AUTH) {
     })
 
 };
-
-function createWebhook(TOKEN, URL, watch) {
+// Creates webhook, returns id
+// Token: trello oauth token
+// URL: callback url
+// watch: id of w/e you want to watch
+// webhook watchs id for actions (createboard/update board etc)
+function createHook(TOKEN, URL, watch) {
     const data = {
         description: 'Created using API',
         callbackURL: URL,
@@ -57,12 +61,14 @@ function createWebhook(TOKEN, URL, watch) {
 
     axios.post(`https://api.trello.com/1/tokens/${TOKEN}/webhooks`, data)
          .catch(err => handleErrors(err))
+    
+    return watch;
 };
 
 // Runs createHook function on every board, and updateCard function on every card
 function start(AUTH) {
     // Get users "me" boards and return url's to get all cards
-    let boardIds = getBoardIds(AUTH).then(boards => boards.map( boards => `/boards/${boards.id}/cards` ) )
+    let boardIds = getBoardIds(AUTH).then(boards => boards.map( boards => `/boards/${createHook(boards.id)}/cards` ) )
     // Get cards, update them & send them back
     let cards = boardIds.then(boardIds => getCards(boardIds, AUTH))
     cards.then(cards => updateCards(cards[0]), AUTH)
@@ -77,6 +83,4 @@ function updateCard(AUTH, card) {
     };
 };
 
-module.exports({updateCard, createWebhook, main})
-
-main(AUTH)
+module.exports({updateCard, createWebhook, start})
