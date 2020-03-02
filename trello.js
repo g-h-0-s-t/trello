@@ -1,6 +1,6 @@
 // Somewhat complete, let me know if my codes messy, I always choose python over javascript, as i know I can create a cleaner product faster!
 
-const axios = require('axios');
+const axios =  require('axios');
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

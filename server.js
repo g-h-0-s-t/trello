@@ -1,5 +1,6 @@
 const express = require('express');
 const trello = require('./trello.js');
+
 const app = express();
 const port = process.env.PORT || 8080
 const API_KEY = 'eece05e3fbcf1e761c982cbcc3148bf7';
@@ -13,9 +14,9 @@ const AUTH = `key=${API_KEY}&token=${TOKEN}`;
 app.use(express.json())
 // Watch member for new board
 app.head('/api/notifications/boards', (req, res) => res.status(200))
-app.post('/api/notifications/boards', (req, res) => req?.action?.createBoard !== undefined ? trello.createHook(TOKEN, URL, req.data.board.id) : '')
+app.post('/api/notifications/boards', (req, res) => req.action.createBoard ? trello.createHook(TOKEN, URL, req.data.board.id) : '')
 // Watch boards for new cards
 app.head('/api/notifications/cards', (req, res) => res.status(200))
-app.post('/api/notifications/cards', (req, res) => !req?.action?.createCard ? trello.updateCard(AUTH, req.data.card) : '')
+app.post('/api/notifications/cards', (req, res) => !req.action.createCard ? trello.updateCard(AUTH, req.data.card) : '')
 
 app.listen(port)
