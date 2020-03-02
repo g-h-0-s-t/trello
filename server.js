@@ -13,7 +13,7 @@ trello.start(AUTH)
 app.use(express.json())
 // Watch member for new board
 app.head('/api/notification/boards', res => res.status(200))
-app.get('/api/notifications/boards', (req, res) => req?.action?.createBoard ? trello.createHook(TOKEN, URL, req.data.board.id) : '')
+app.post('/api/notifications/boards', (req, res) => req?.action?.createBoard ? trello.createHook(TOKEN, URL, req.data.board.id) : '')
 // Watch boards for new cards
 app.head('/api/notification/cards', res => res.status(200))
 app.post('/api/notification/cards', (req, res) => !req?.action?.createCard ? trello.updateCard(AUTH, req.data.card) : '')
