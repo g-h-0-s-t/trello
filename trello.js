@@ -48,24 +48,19 @@ function updateCards(cards, AUTH) {
 
 };
 
-// function createWebhook() {
-//     const data = {
-//         description: ''
-//         callbackURL: 
-//         idModel: 
-//     }
-//     axios.post('https://api.trello.com/1/tokens/{APIToken}/webhooks', data)
-//         .then()
-//          .catch(err => handleErrors(err))
-// };
+function createWebhook(TOKEN, URL, watch) {
+    const data = {
+        description: 'Created using API',
+        callbackURL: URL,
+        idModel: watch
+    };
 
+    axios.post(`https://api.trello.com/1/tokens/${TOKEN}/webhooks`, data)
+         .catch(err => handleErrors(err))
+};
 
-// function webhookResponse() {
-
-// }
-
-// AUTH = key=[API_KEY]&token=[TOKEN]
-function main(AUTH) {
+// Runs createHook function on every board, and updateCard function on every card
+function start(AUTH) {
     // Get users "me" boards and return url's to get all cards
     let boardIds = getBoardIds(AUTH).then(boards => boards.map( boards => `/boards/${boards.id}/cards` ) )
     // Get cards, update them & send them back
@@ -73,9 +68,15 @@ function main(AUTH) {
     cards.then(cards => updateCards(cards[0]), AUTH)
 };
 
-// function updateNewCard(card) {
+function updateCard(AUTH, card) {
+    if (card.name.search(card.id)) {
+        card.name = `${card.id} - ${card.name}`;
+        axios.put(url + `cards/${card.id}?${AUTH}`, card)
+            .then(console.log(`Name change successful: ${card.name}`))
+             .catch(err => handleErrors(err))
+    };
+};
 
-// }
-// module.exports(main)
+module.exports({updateCard, createWebhook, main})
 
-setInterval(main(AUTH), 60000)
+main(AUTH)
