@@ -80,6 +80,6 @@ function updateCard(AUTH, card) {
     };
 };
 
-module.exports({ updateCard,
+module.exports { updateCard,
                  createHook,
-                 start, })
+                 start, }
