@@ -1,9 +1,6 @@
 // Somewhat complete, let me know if my codes messy, I always choose python over javascript, as i know I can create a cleaner product faster!
 
 const axios = require('axios');
-const API_KEY = '';
-const TOKEN = '';
-const AUTH = `key=${API_KEY}&token=${TOKEN}`;
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -83,4 +80,6 @@ function updateCard(AUTH, card) {
     };
 };
 
-module.exports({updateCard, createWebhook, start})
+module.exports({ updateCard,
+                 createHook,
+                 start, })
