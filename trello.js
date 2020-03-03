@@ -34,6 +34,7 @@ function getCards(boardIds, AUTH) {
 
 function updateCards(cards, AUTH) {
     const url = 'https://api.trello.com/1/';
+    console.log(cards)
     cards.map( card => {
         if (card.name.search(card.id)) {
             card.name = `${card.id} - ${card.name}`;
