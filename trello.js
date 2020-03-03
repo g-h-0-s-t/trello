@@ -68,7 +68,7 @@ function start(AUTH) {
     // Get users "me" boards and return url's to get all cards
     let boardIds = getBoardIds(AUTH).then(boards => boards.map( boards => `/boards/${createHook(boards.id)}/cards` ) )
     // Get cards, update them & send them back
-    let cards = boardIds.then(boardIds => getCards(boardIds, AUTH))
+    let cards = boardIds.then(boardIds => {console.log(boardIds); getCards(boardIds, AUTH);})
     cards.then(cards => updateCards(cards[0], AUTH))
     return true;
 };
