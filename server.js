@@ -8,7 +8,7 @@ const TOKEN = 'cbd97c1319aa90c3c254418de55384afb3220187d54b12d91b7dd74c1be45fc4'
 const AUTH = `key=${API_KEY}&token=${TOKEN}`;
 
 // Finds all cards and updates them
-// trello.start(AUTH)
+trello.start(AUTH)
 
 // Head request shows trello callback is valid
 app.use(express.json())
