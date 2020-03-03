@@ -69,6 +69,7 @@ function start(AUTH) {
     // Get cards, update them & send them back
     let cards = boardIds.then(boardIds => getCards(boardIds, AUTH))
     cards.then(cards => updateCards(cards[0]), AUTH)
+    return true;
 };
 
 function updateCard(AUTH, card) {
