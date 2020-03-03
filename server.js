@@ -13,9 +13,9 @@ const AUTH = `key=${API_KEY}&token=${TOKEN}`;
 // Head request shows trello callback is valid
 app.use(express.json())
 // Watch member for new board
-app.head('/api/notifications/boards', (req, res) => res.status(200))
+app.head('/api/notifications/boards', res => res.status(200).json('success'))
 app.post('/api/notifications/boards', (req, res) => req.action.createBoard ? trello.createHook(TOKEN, URL, req.data.board.id) :
- res.json({'value': null}))
+                                                                                                                        res.json({'value': null}))
 // Watch boards for new cards
 app.head('/api/notifications/cards', (req, res) => res.status(200))
 app.post('/api/notifications/cards', (req, res) => !req.action.createCard ? trello.updateCard(AUTH, req.data.card) : res.json({'value': null}))
