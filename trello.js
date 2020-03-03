@@ -50,7 +50,7 @@ function createHook(TOKEN, URL, watch) {
     };
 
     axios.post(`https://api.trello.com/1/tokens/${TOKEN}/webhooks`, data)
-        .then(res => res.ok ? console.log(res.data : console.log(false))
+        .then(res => res.ok ? console.log(res.data) : console.log(false))
          .catch(err => handleErrors(err))
     
     return watch;
