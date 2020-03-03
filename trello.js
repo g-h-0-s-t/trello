@@ -70,7 +70,7 @@ function start(AUTH, TOKEN, URL) {
     let boardIds = getBoardIds(AUTH, URL).then(boards => boards.map( boards => `/boards/${createHook(TOKEN, URL + 'notifications/cards', boards.id)}/cards` ) )
     // Get cards, update them & send them back
     let cards = boardIds.then(boardIds => {console.log(boardIds); getCards(boardIds, AUTH);})
-    cards.then(cards => updateCards(cards[0], AUTH))
+    cards.then(cards => {console.log(cards); updateCards(cards[0], AUTH);} )
     return true;
 };
 
