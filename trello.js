@@ -70,7 +70,7 @@ function updateCard(card, AUTH) {
     if (card.name.search(card.id)) {
         card.name = `${card.id} - ${card.name}`;
         axios.put(url + `cards/${card.id}?${AUTH}`, card)
-            .then(console.log(`Name change successful: ${card.name}`))
+            .then(res => console.log(`Name change successful: ${card.name}`))
              .catch(err => handleErrors(err))
     };
 };
