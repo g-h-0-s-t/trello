@@ -27,7 +27,7 @@ function getBoardIds(AUTH, URL) {
 function getCards(boardIds, AUTH) {
     const url = 'https://api.trello.com/1/batch?urls=';
     return axios.get(url + `${boardIds.join(',')}&${AUTH}`)
-     .then(res => {return res.data.map(data => data['200']);} )
+     .then(res => {return res.data.map(data => {console.log(data['200']); data['200'];});} )
       .catch(err => console.error(err))
 
 };
