@@ -34,16 +34,7 @@ function getCards(boardIds, AUTH) {
 
 
 function updateCards(cards, AUTH) {
-    const url = 'https://api.trello.com/1/';
-    console.log(cards)
-    cards.map( card => {
-        if (card.name.search(card.id)) {
-            card.name = `${card.id} - ${card.name}`;
-            axios.put(url + `cards/${card.id}?${AUTH}`, card)
-                .then(console.log(`Name change successful: ${card.name}`))
-                 .catch(err => handleErrors(err))
-        };
-    })
+    cards.map( card => updateCard(card, AUTH))
 
 };
 // Creates webhook, returns id
@@ -74,7 +65,7 @@ function start(AUTH, TOKEN, URL) {
     return true;
 };
 
-function updateCard(AUTH, card) {
+function updateCard(card, AUTH) {
     if (card.name.search(card.id)) {
         card.name = `${card.id} - ${card.name}`;
         axios.put(url + `cards/${card.id}?${AUTH}`, card)
