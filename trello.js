@@ -6,6 +6,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   };
 
+
 function handleErrors(err) {
     switch(err.response.status) {
         case 433:
@@ -15,10 +16,10 @@ function handleErrors(err) {
     }
 };
 
-function getBoardIds(AUTH) {
+function getBoardIds(AUTH, URL) {
     let url = `https://api.trello.com/1/members/me/boards?${AUTH}`;
     return axios.get(url)
-        .then(res => { return res.data })
+        .then(res => { createHook(AUTH, URL + 'notifications/boards', res.data.id); return res.data; })
          .catch(err => console.error(err))
 };
 
@@ -64,9 +65,9 @@ function createHook(TOKEN, URL, watch) {
 };
 
 // Runs createHook function on every board, and updateCard function on every card
-function start(AUTH) {
+function start(AUTH, TOKEN, URL) {
     // Get users "me" boards and return url's to get all cards
-    let boardIds = getBoardIds(AUTH).then(boards => boards.map( boards => `/boards/${createHook(boards.id)}/cards` ) )
+    let boardIds = getBoardIds(AUTH, URL).then(boards => boards.map( boards => `/boards/${createHook(TOKEN, URL + 'notifications/cards', boards.id)}/cards` ) )
     // Get cards, update them & send them back
     let cards = boardIds.then(boardIds => {console.log(boardIds); getCards(boardIds, AUTH);})
     cards.then(cards => updateCards(cards[0], AUTH))
