@@ -4,7 +4,7 @@ const trello = require('./trello.js');
 const app = express();
 const port = process.env.PORT || 8080
 const API_KEY = 'eece05e3fbcf1e761c982cbcc3148bf7';
-const TOKEN = 'ba26ee94a0417b7bd0b212e28a0e15dcecf47dfe7870c29b72d1ece3b0a1734d';
+const TOKEN = '86026753fef3c550ce06e63f5f1b1ec5d7aadd339068d95483485b001de49083';
 const AUTH = `key=${API_KEY}&token=${TOKEN}`;
 
 // Finds all cards and updates them
