@@ -51,6 +51,7 @@ function updateCards(AUTH, cards) {
 function readWebhooks() {
     return JSON.parse(fs.readFileSync('webhook_ids.json'));
 };
+
 function writeWebhook(id) {
     console.log(id)
     let webhooks = readWebhooks();
@@ -58,6 +59,7 @@ function writeWebhook(id) {
     let data = JSON.stringify(webhooks);
     fs.writeFileSync('webhook_ids.json', data)
 }
+
 function createHook(TOKEN, URL, watch) {
     const data = {
         description: 'Created using API',
@@ -78,7 +80,11 @@ function start(AUTH, TOKEN, URL) {
     let boardIds = getBoardIds(AUTH, URL).then(boards => boards.map( boards => `/boards/${createHook(TOKEN, URL + 'notifications/cards', boards.id)}/cards` ) )
     // Get cards, update them & send them back
     let cards = boardIds.then(boardIds => getCards(AUTH, boardIds))
-    cards.then(cards => updateCards(AUTH, cards[0]))
+    cards.then(cards => {
+        console.log(cards[0].length);
+        updateCards(AUTH, cards[0]);
+    })
+    
     return {
         val1: boardIds,
         val: cards
