@@ -1,6 +1,7 @@
 // Somewhat complete, let me know if my codes messy, I always choose python over javascript, as i know I can create a cleaner product faster!
 
 const axios = require('axios');
+const fs = require('fs');
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -47,6 +48,15 @@ function updateCards(AUTH, cards) {
 // URL: callback url
 // watch: id of w/e you want to watch
 // webhook watchs id for actions (createboard/update board etc)
+
+function readWebhooks() {
+    return JSON.parse(fs.readFileSync('webhook_ids.json'));
+};
+function writeWebhook(id) {
+    let webhooks = readWebhooks()
+    let data = JSON.stringify(...webhooks.values, [id]));
+    fs.writeFileSync('webhook_ids.json', data)
+}
 function createHook(TOKEN, URL, watch) {
     const data = {
         description: 'Created using API',
@@ -55,7 +65,7 @@ function createHook(TOKEN, URL, watch) {
     };
 
     axios.post(`https://api.trello.com/1/tokens/${TOKEN}/webhooks`, data)
-        .then(res => res.ok ? console.log(res.data) : console.log(false))
+        .then(res => res.ok ? writeWebhook(res.data.id) : console.log(false))
          .catch(err => handleErrors(err))
     
     return watch;
