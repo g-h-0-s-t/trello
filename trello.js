@@ -81,8 +81,10 @@ function start(AUTH, TOKEN, URL) {
     // Get cards, update them & send them back
     let cards = boardIds.then(boardIds => getCards(AUTH, boardIds))
     cards.then(cards => {
-        console.log(cards[0].length);
-        updateCards(AUTH, cards[0]);
+        console.log(cards.length);
+        cards.map(board => {
+            updateCards(AUTH, board);
+        });
     })
     
     return {
