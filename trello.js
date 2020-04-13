@@ -96,4 +96,5 @@ function updateCard(AUTH, card) {
 
 module.exports = { updateCards,
                    createHook,
-                   start, };
+                   start,
+                   readWebhooks, };

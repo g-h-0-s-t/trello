@@ -26,5 +26,5 @@ app.post('/api/notifications/boards', (req, res) => {
 app.head('/api/notifications/cards', (req, res) => res.status(200).json({value: 'success'}))
 app.post('/api/notifications/cards', (req, res) => !req.action.createCard ? trello.updateCard(AUTH, req.data.card) : res.j§ son({'value': null}))
 
-app.get('/api/webhooks', (req, res) => res.status(200).json({value: trello.getWebhooks()}))
+app.get('/api/webhooks', (req, res) => res.status(200).json({value: trello.readWebhooks()}))
 app.listen(port)
