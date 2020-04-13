@@ -30,7 +30,6 @@ function getCards(boardIds, AUTH) {
     return axios.get(url + `${boardIds.join(',')}&${AUTH}`)
      .then(res => {
          return res.data.map(data => {
-             console.log(data['200']);
              return data['200'];}
          ) 
      })
@@ -53,6 +52,7 @@ function readWebhooks() {
     return JSON.parse(fs.readFileSync('webhook_ids.json'));
 };
 function writeWebhook(id) {
+    console.log(id)
     let webhooks = readWebhooks();
     webhooks.push(id);
     let data = JSON.stringify(webhooks);
@@ -77,12 +77,11 @@ function start(AUTH, TOKEN, URL) {
     // Get users "me" boards and return url's to get all cards
     let boardIds = getBoardIds(AUTH, URL).then(boards => boards.map( boards => `/boards/${createHook(TOKEN, URL + 'notifications/cards', boards.id)}/cards` ) )
     // Get cards, update them & send them back
-    let cards = boardIds.then(boardIds => {console.log(boardIds); getCards(boardIds, AUTH);})
-    console.log(cards == undefined)
-    cards.then(cards => {console.log(cards); updateCards(cards[0], AUTH);} )
+    let cards = boardIds.then(boardIds => getCards(boardIds, AUTH))
+    cards.then(cards => updateCards(cards[0], AUTH))
     return {
-        boardIds,
-        cards
+        val1: boardIds,
+        val: cards
     }
 };
 
