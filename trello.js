@@ -69,7 +69,10 @@ function start(AUTH, TOKEN, URL) {
     let cards = boardIds.then(boardIds => {console.log(boardIds); getCards(boardIds, AUTH);})
     console.log(cards == undefined)
     cards.then(cards => {console.log(cards); updateCards(cards[0], AUTH);} )
-    return true;
+    return {
+        boardIds,
+        cards
+    }
 };
 
 function updateCard(AUTH, card) {
