@@ -77,13 +77,12 @@ function createHook(TOKEN, URL, watch) {
 // Runs createHook function on every board, and updateCard function on every card
 function start(AUTH, TOKEN, URL) {
     // Get users "me" boards and return url's to get all cards
-    let boardIds = getBoardIds(AUTH, URL).then(boards => boards.map( boards => `/boards/${createHook(TOKEN, URL + 'notifications/cards', boards.id)}/cards` ) )
+    let boardIds = getBoardIds(AUTH, URL).then(boards => boards.map( boards => `/boards/${createHook(TOKEN, URL, boards.id)}/cards` ) )
     // Get cards, update them & send them back
-    let cards = boardIds.then(boardIds => getCards(AUTH, boardIds))
-    cards.then(cards => {
-        console.log(cards.length);
-        cards.map(board => {
-            updateCards(AUTH, board);
+    let cardsInBoards = boardIds.then(boardIds => getCards(AUTH, boardIds))
+    cardsInBoards.then(cardsInBoard => {
+        cardsInBoard.map(cards => {
+            updateCards(AUTH, cards);
         });
     })
     
