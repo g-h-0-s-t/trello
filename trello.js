@@ -39,7 +39,7 @@ function getCards(boardIds, AUTH) {
 
 
 function updateCards(AUTH, cards) {
-    cards.map( card => updateCard(card, AUTH))
+    cards.map( card => updateCard(AUTH, card))
 
 };
 // Creates webhook, returns id
@@ -77,7 +77,7 @@ function start(AUTH, TOKEN, URL) {
     // Get users "me" boards and return url's to get all cards
     let boardIds = getBoardIds(AUTH, URL).then(boards => boards.map( boards => `/boards/${createHook(TOKEN, URL + 'notifications/cards', boards.id)}/cards` ) )
     // Get cards, update them & send them back
-    let cards = boardIds.then(boardIds => getCards(boardIds, AUTH))
+    let cards = boardIds.then(boardIds => getCards(AUTH, boardIds))
     cards.then(cards => updateCards(cards[0], AUTH))
     return {
         val1: boardIds,
