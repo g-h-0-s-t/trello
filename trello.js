@@ -25,7 +25,7 @@ function getBoardIds(AUTH, URL) {
 };
 
 
-function getCards(boardIds, AUTH) {
+function getCards(AUTH, boardIds) {
     const url = 'https://api.trello.com/1/batch?urls=';
     return axios.get(url + `${boardIds.join(',')}&${AUTH}`)
      .then(res => {
@@ -78,7 +78,7 @@ function start(AUTH, TOKEN, URL) {
     let boardIds = getBoardIds(AUTH, URL).then(boards => boards.map( boards => `/boards/${createHook(TOKEN, URL + 'notifications/cards', boards.id)}/cards` ) )
     // Get cards, update them & send them back
     let cards = boardIds.then(boardIds => getCards(AUTH, boardIds))
-    cards.then(cards => updateCards(cards[0], AUTH))
+    cards.then(cards => updateCards(AUTH, cards[0]))
     return {
         val1: boardIds,
         val: cards
