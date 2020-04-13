@@ -53,8 +53,9 @@ function readWebhooks() {
     return JSON.parse(fs.readFileSync('webhook_ids.json'));
 };
 function writeWebhook(id) {
-    let webhooks = readWebhooks()
-    let data = JSON.stringify(...webhooks.values, [id]));
+    let webhooks = readWebhooks();
+    webhooks.push(id);
+    let data = JSON.stringify(webhooks);
     fs.writeFileSync('webhook_ids.json', data)
 }
 function createHook(TOKEN, URL, watch) {
