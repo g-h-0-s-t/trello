@@ -85,11 +85,7 @@ function start(AUTH, TOKEN, URL) {
             updateCards(AUTH, cards);
         });
     })
-    
-    return {
-        val1: boardIds,
-        val: cards
-    }
+    return true;
 };
 
 function updateCard(AUTH, card) {
