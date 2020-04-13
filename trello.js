@@ -86,6 +86,7 @@ function start(AUTH, TOKEN, URL) {
 };
 
 function updateCard(AUTH, card) {
+    const url = 'https://api.trello.com/1/';
     if (card.name.search(card.id)) {
         card.name = `${card.id} - ${card.name}`;
         axios.put(url + `cards/${card.id}?${AUTH}`, card)
