@@ -1,6 +1,6 @@
 // Somewhat complete, let me know if my codes messy, I always choose python over javascript, as i know I can create a cleaner product faster!
 
-const axios =  require('axios');
+const axios = require('axios');
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -27,13 +27,18 @@ function getBoardIds(AUTH, URL) {
 function getCards(boardIds, AUTH) {
     const url = 'https://api.trello.com/1/batch?urls=';
     return axios.get(url + `${boardIds.join(',')}&${AUTH}`)
-     .then(res => {return res.data.map(data => {console.log(data['200']); data['200'];});} )
+     .then(res => {
+         return res.data.map(data => {
+             console.log(data['200']);
+             return data['200'];}
+         ) 
+     })
       .catch(err => console.error(err))
 
 };
 
 
-function updateCards(cards, AUTH) {
+function updateCards(AUTH, cards) {
     cards.map( card => updateCard(card, AUTH))
 
 };
@@ -67,7 +72,7 @@ function start(AUTH, TOKEN, URL) {
     return true;
 };
 
-function updateCard(card, AUTH) {
+function updateCard(AUTH, card) {
     if (card.name.search(card.id)) {
         card.name = `${card.id} - ${card.name}`;
         axios.put(url + `cards/${card.id}?${AUTH}`, card)
@@ -76,6 +81,6 @@ function updateCard(card, AUTH) {
     };
 };
 
-module.exports = { updateCard,
+module.exports = { updateCards,
                    createHook,
                    start, };
