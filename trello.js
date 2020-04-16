@@ -20,7 +20,7 @@ function handleErrors(err) {
 
 // Gets the all the boards for a specific member, defaults to me
 function getBoardIds(AUTH, CALLBACK_URL, member='me') {
-    const url = `https://api.trello.com/1/members/${}/boards?${AUTH}`;
+    const url = `https://api.trello.com/1/members/${member}/boards?${AUTH}`;
     return axios.get(url)
         .then(res => {
             // Creates a webhook on the member
@@ -37,7 +37,7 @@ function boardIdsToRequests(board_ids) {
 }
 // gets the card objects from a board, uses batch to save api calls
 function getCards(AUTH, requests) {
-    const url = 'https://api.trello.com/1/batch?urls=';
+    let url = 'https://api.trello.com/1/batch?urls=';
     return axios.get(url + `${requests.join(',')}&${AUTH}`)
      .then(res => {
          return res.data.map(data => {
