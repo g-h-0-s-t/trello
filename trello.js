@@ -74,7 +74,8 @@ function createHook(TOKEN, URL, watch) {
         .then(res => res.ok ? writeWebhook(res.data.id) : console.log('failed'))
          .catch(err => {
              handleErrors(err);
-             console.log(err))
+             console.log(err)
+          })
     
     return watch;
 };
