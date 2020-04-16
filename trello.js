@@ -99,9 +99,9 @@ function createHook(AUTH, URL, watch, writeFunc) {
 
 // Runs createHook function on the chosen, member (defaults to me, and every boar.
 // Then runs updateCard function on every card
-function start(AUTH, URL) {
+function start(AUTH, URL, USER) {
     // Get users "me" boards and return url's to get all cards
-    let requests_to_boards = getBoardIds(AUTH, URL).then(board_ids => { boardIdsToRequests(board_ids) });
+    let requests_to_boards = getBoardIds(AUTH, URL, USER).then(board_ids => { boardIdsToRequests(board_ids) });
         
     // Get cards, update them & send them back
     let cards_in_boards = requests_to_boards.then(requests => { 
