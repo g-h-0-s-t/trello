@@ -32,7 +32,9 @@ function getBoardIds(AUTH, CALLBACK_URL, member='me') {
 };
 
 function boardIdsToRequests(AUTH, board_ids) {
+    console.log(board_ids)
     return board_ids.map( boards => {
+        console.log(boards)
         `/boards/${ boards in readBoardIds() ? boards : createHook(AUTH, URL + '/api/notifications/boards', boards, writeBoardIds)}/cards`;
     }); 
 }
