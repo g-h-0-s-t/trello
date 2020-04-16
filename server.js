@@ -11,7 +11,7 @@ const URL = 'https://new43.herokuapp.com';
 // 
 // Finds all cards and updates them
 app.get('/api/start', (req, res) => {
-    res.status(201).json({ value: trello.start(AUTH, TOKEN, URL) });
+    res.status(201).json({ value: trello.start(AUTH, API_KEY, URL) });
 })
 
 // Head request shows trello callback is valid
