@@ -61,7 +61,7 @@ function readJson(filename) {
 function writeIdIntoJson(filename, readFunc, id) {
     let ids = readFunc();
     ids.push(id);
-    const json_ids = JSON.stringify(ids)
+    const json_ids = JSON.stringify({"ids": ids})
     fs.writeFileSync(`./ids/${filename}`, json_ids)
 }
 
