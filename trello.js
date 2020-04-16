@@ -103,15 +103,15 @@ function start(AUTH, URL, USER) {
     // Get users "me" boards and return url's to get all cards
     let requests_to_boards = getBoardIds(AUTH, URL, USER).then(board_ids => { boardIdsToRequests(AUTH, board_ids) });
     
-    console.log(requests_to_boards)
     // Get cards, update them & send them back
     let cards_in_boards = requests_to_boards.then(requests => { 
+        console.log(requests)
         return getCards(AUTH, requests); 
     });
 
     cards_in_boards.then(cards_in_boards => { 
         cards_in_boards.map(cards_in_board => {
-            console.log(cards)
+            console.log(cards_in_board)
             updateCards(AUTH, cards_in_board);
         });
     });
