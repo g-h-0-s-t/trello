@@ -25,14 +25,12 @@ function getBoardIds(AUTH, CALLBACK_URL, member='me') {
         .then(res => {
             // Creates a webhook on the member
              res.data.id in readUserIds() ? false : createHook(AUTH, CALLBACK_URL + '/api/notifications/boards', res.data.id, writeUserIds);
-             console.log(res.data)
              return res.data.idBoards;
         })
          .catch(err => console.error(err))
 };
 
 function boardIdsToRequests(AUTH, board_ids) {
-    console.log(board_ids)
     return board_ids.map( boards => {
         console.log(boards)
         `/boards/${ boards in readBoardIds() ? boards : createHook(AUTH, URL + '/api/notifications/boards', boards, writeBoardIds)}/cards`;
@@ -101,7 +99,7 @@ function createHook(AUTH, URL, watch, writeFunc) {
 function start(AUTH, URL, USER) {
     // Get users "me" boards and return url's to get all cards
     let requests_to_boards = getBoardIds(AUTH, URL, USER).then(board_ids => { return boardIdsToRequests(AUTH, board_ids) });
-    
+    console.log(requests_to_boards)
     // Get cards, update them & send them back
     let cards_in_boards = requests_to_boards.then(requests => { 
         //console.log(requests)
