@@ -20,7 +20,10 @@ function handleErrors(err) {
 function getBoardIds(AUTH, URL) {
     let url = `https://api.trello.com/1/members/me/boards?${AUTH}`;
     return axios.get(url)
-        .then(res => { createHook(AUTH, URL + 'notifications/boards', res.data.id); return res.data; })
+        .then(res => {
+             createHook(AUTH, URL + 'notifications/boards', res.data.id);
+             return res.data;
+        })
          .catch(err => console.error(err))
 };
 
@@ -68,8 +71,10 @@ function createHook(TOKEN, URL, watch) {
     };
 
     axios.post(`https://api.trello.com/1/tokens/${TOKEN}/webhooks`, data)
-        .then(res => res.ok ? writeWebhook(res.data.id) : console.log(false))
-         .catch(err => handleErrors(err))
+        .then(res => res.ok ? writeWebhook(res.data.id) : console.log('failed'))
+         .catch(err => {
+             handleErrors(err);
+             console.log(err))
     
     return watch;
 };
