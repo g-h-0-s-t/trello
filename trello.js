@@ -88,7 +88,7 @@ function createHook(AUTH, URL, watch, writeFunc) {
     };
 
     axios.post(`https://api.trello.com/1/webhooks?${AUTH}`, data)
-        .then(res => res.ok ? writeWebhook(res.data.id) : console.log('failed'))
+        .then(res => res.ok ? console.log(`successfully watching ${watch}`) : console.log(`failed to create webhook for ${watch}`))
          .catch(err => {
              console.log(handleErrors(err));
           })
