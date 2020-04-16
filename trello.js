@@ -30,7 +30,7 @@ function getBoardIds(AUTH, CALLBACK_URL, member='me') {
          .catch(err => console.error(err))
 };
 
-function boardIdsToRequests(board_ids) {
+function boardIdsToRequests(AUTH, board_ids) {
     return board_ids.map( boards => {
         `/boards/${ boards.id in readBoardIds() ? boards.id : createHook(AUTH, URL + '/api/notifications/boards', boards.id, writeBoardIds)}/cards`;
     }); 
@@ -101,7 +101,7 @@ function createHook(AUTH, URL, watch, writeFunc) {
 // Then runs updateCard function on every card
 function start(AUTH, URL, USER) {
     // Get users "me" boards and return url's to get all cards
-    let requests_to_boards = getBoardIds(AUTH, URL, USER).then(board_ids => { boardIdsToRequests(board_ids) });
+    let requests_to_boards = getBoardIds(AUTH, URL, USER).then(board_ids => { boardIdsToRequests(AUTH, board_ids) });
         
     // Get cards, update them & send them back
     let cards_in_boards = requests_to_boards.then(requests => { 
