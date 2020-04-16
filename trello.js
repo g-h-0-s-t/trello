@@ -31,10 +31,12 @@ function getBoardIds(AUTH, CALLBACK_URL, member='me') {
 };
 
 function boardIdsToRequests(AUTH, board_ids) {
-    return board_ids.map( boards => {
-        console.log(boards)
+    board_ids.map( boards => {
         `/boards/${ boards in readBoardIds() ? boards : createHook(AUTH, URL + '/api/notifications/boards', boards, writeBoardIds)}/cards`;
     }); 
+
+    console.log(board_ids)
+    return board_ids
 }
 // gets the card objects from a board, uses batch to save api calls
 function getCards(AUTH, requests) {
