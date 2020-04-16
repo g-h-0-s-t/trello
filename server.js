@@ -11,7 +11,7 @@ const URL = 'https://new43.herokuapp.com';
 // 
 // Finds all cards and updates them
 app.get('/api/start', (req, res) => {
-    res.status(201).json({ value: trello.start(AUTH, TOKEN, URL) });
+    res.status(201).json({ value: trello.start(AUTH, URL) });
 })
 
 // Head request shows trello callback is valid
@@ -26,5 +26,5 @@ app.post('/api/notifications/boards', (req, res) => {
 app.head('/api/notifications/cards', (req, res) => res.status(200).json({value: 'success'}))
 app.post('/api/notifications/cards', (req, res) => !req.action.createCard ? trello.updateCard(AUTH, req.data.card) : res.json({'value': null}))
 
-app.get('/api/webhooks', (req, res) => res.status(200).json({value: trello.readWebhooks()}))
+app.get('/api/webhooks', (req, res) => res.status(200).json({value: trello.readBoardIds()}))
 app.listen(port)
