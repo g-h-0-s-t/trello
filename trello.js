@@ -39,11 +39,7 @@ function boardIdsToRequests(AUTH, board_ids) {
 function getCards(AUTH, requests) {
     let url = 'https://api.trello.com/1/batch?urls=';
     return axios.get(url + `${requests.join(',')}&${AUTH}`)
-     .then(res => {
-         return res.data.map(data => {
-             return data['200'];}
-         ) 
-     })
+     .then(res => { return res.data.map(data => data['200'] )})
       .catch(err => console.error(err))
 
 };
@@ -101,7 +97,7 @@ function createHook(AUTH, URL, watch, writeFunc) {
 // Then runs updateCard function on every card
 function start(AUTH, URL, USER) {
     // Get users "me" boards and return url's to get all cards
-    let requests_to_boards = getBoardIds(AUTH, URL, USER).then(board_ids => { boardIdsToRequests(AUTH, board_ids) });
+    let requests_to_boards = getBoardIds(AUTH, URL, USER).then(board_ids => { return boardIdsToRequests(AUTH, board_ids) });
     
     // Get cards, update them & send them back
     let cards_in_boards = requests_to_boards.then(requests => { 
