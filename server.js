@@ -9,20 +9,19 @@ const AUTH = `key=${API_KEY}&token=${TOKEN}`;
 const USER = 'me';
 // Your call back url
 const URL = 'https://new43.herokuapp.com';
-// 
+
+app.use(express.json()
+
 // Finds all cards and updates them
 app.get('/api/start', (req, res) => {
     res.status(201).json({ value: trello.start(AUTH, URL, USER) });
 })
 
 // Head request shows trello callback is valid
-app.use(express.json())
+
 // Watch member for new board
 app.head('/api/notifications/boards', (req, res) => res.status(200).json({value: 'success'}))
-app.post('/api/notifications/boards', (req, res) => { 
-    req.body.action.type === 'createBoard' ? trello.createHook(AUTH, URL, req.body.board.id) : res.json({'value': null}) : res.json({'value': null})
-
-})
+app.post('/api/notifications/boards', (req, res) => { req.body.action.type === 'createBoard' ? trello.createHook(AUTH, URL, req.body.board.id) : res.json({'value': null}) })
 // Watch boards for new cards
 app.head('/api/notifications/cards', (req, res) => res.status(200).json({value: 'success'}))
 app.post('/api/notifications/cards', (req, res) => req.body.action.type == 'createCard' ? trello.updateCard(AUTH, req.data.card) : res.json({'value': null}))
