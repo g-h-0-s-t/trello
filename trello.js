@@ -40,11 +40,21 @@ function boardIdsToRequests(AUTH, board_ids) {
 }
 // gets the card objects from a board, uses batch to save api calls
 function getCards(AUTH, requests) {
-    let url = 'https://api.trello.com/1/batch?urls=';
+    const url = 'https://api.trello.com/1/batch?urls=';
     return axios.get(url + `${requests.join(',')}&${AUTH}`)
      .then(res => { return res.data.map(data => data['200'] )})
       .catch(err => console.error(err))
 
+};
+
+function updateCard(AUTH, card) {
+    const url = 'https://api.trello.com/1/';
+    if (card.name.search(card.id)) {
+        card.name = `${card.id} - ${card.name}`;
+        axios.put(url + `cards/${card.id}?${AUTH}`, card)
+            .then(res => console.log(`Name change successful: ${card.name}`))
+             .catch(err => console.log(handleErrors(err)))
+    };
 };
 
 // updates an array of cards
@@ -74,19 +84,19 @@ function writeBoardIds(id) { writeIdIntoJson('board_ids.json', readBoardIds, id)
 
 // Creates webhook, returns id
 // Token: trello oauth token
-// URL: callback url
+// CALLBACK_URL: callback url
 // watch: id of w/e you want to watch
 // webhook watches id for actions (createboard/update board etc)
 
-function createHook(AUTH, URL, watch, writeFunc) {
-    
+function createHook(AUTH, CALLBACK_URL, watch, writeFunc) {
+    const url = `https://api.trello.com/1/webhooks?${AUTH}`
     const data = {
         description: 'Created using API',
-        callbackURL: URL,
+        callbackURL: CALLBACK_URL,
         idModel: watch
     };
 
-    axios.post(`https://api.trello.com/1/webhooks?${AUTH}`, data)
+    axios.post(url, data)
         .then(res => res.ok ? console.log(`successfully watching ${watch}`) : console.log(`failed to create webhook for ${watch}`))
          .catch(err => {
              console.log(handleErrors(err));
@@ -115,16 +125,6 @@ function start(AUTH, URL, USER) {
         });
     });
     return true;
-};
-
-function updateCard(AUTH, card) {
-    const url = 'https://api.trello.com/1/';
-    if (card.name.search(card.id)) {
-        card.name = `${card.id} - ${card.name}`;
-        axios.put(url + `cards/${card.id}?${AUTH}`, card)
-            .then(res => console.log(`Name change successful: ${card.name}`))
-             .catch(err => console.log(handleErrors(err)))
-    };
 };
 
 module.exports = { updateCards,
