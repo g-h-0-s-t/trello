@@ -12,6 +12,7 @@ function handleErrors(err) {
     switch(err.response.status) {
         case 433:
             sleep(90000);
+            console.log('You\'ve hit the api rate limit, sleeping for 90 seconds.')
             return err;
         case 401:
             return err        
@@ -31,12 +32,10 @@ function getBoardIds(AUTH, CALLBACK_URL, member='me') {
 };
 
 function boardIdsToRequests(AUTH, CALLBACK_URL, board_ids) {
-    let a = board_ids.map( boards => {
+    return board_ids.map( boards => {
         return `/boards/${ boards in readBoardIds() ? boards : createHook(AUTH, CALLBACK_URL + '/api/notifications/cards', boards, writeBoardIds)}/cards`;
     }); 
 
-    console.log(a)
-    return a
 }
 // gets the card objects from a board, uses batch to save api calls
 function getCards(AUTH, requests) {
@@ -102,7 +101,6 @@ function createHook(AUTH, CALLBACK_URL, watch, writeFunc) {
          .catch(err => {
              console.log(handleErrors(err));
           })
-    console.log(writeFunc)
     writeFunc(watch);
     return watch;
 };
@@ -113,7 +111,7 @@ function removeAllWebhooks(AUTH, TOKEN){
 
     webhooks.forEach( webhook => {
         axios.delete(url + webhook.id)
-        .then(res => {return res.data.})
+        .then(res => console.log(`deleted - ${res.data.id}`)
          .catch(err => console.log(handleErrors(err)))
     })
 
