@@ -10,7 +10,7 @@ const USER = 'me';
 // Your call back url
 const URL = 'https://new43.herokuapp.com';
 
-app.use(express.json()
+app.use(express.json())
 
 // Finds all cards and updates them
 app.get('/api/start', (req, res) => {
