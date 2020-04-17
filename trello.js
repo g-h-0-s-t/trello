@@ -128,7 +128,7 @@ function start(AUTH, CALLBACK_URL, USER) {
     return true;
 };
 
-module.exports = { updateCards,
+module.exports = { updateCard,
                    createHook,
                    start,
                    readBoardIds, };
