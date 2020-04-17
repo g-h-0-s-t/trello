@@ -107,7 +107,19 @@ function createHook(AUTH, CALLBACK_URL, watch, writeFunc) {
     return watch;
 };
 
-// Runs createHook function on the chosen, member (defaults to me, and every boar.
+function removeAllWebhooks(AUTH, TOKEN){
+    const url = `https://api.trello.com/1/webhooks?${AUTH}`;
+    const webhooks = axios.get(`https://api.trello.come/1/token/${TOKEN}/webhooks?${AUTH}`).then(res => { return res.data }).catch(err => console.log(handleErrors(err)))
+
+    webhooks.forEach( webhook => {
+        axios.delete(url + webhook.id)
+        .then(res => {return res.data.})
+         .catch(err => console.log(handleErrors(err)))
+    })
+
+    return 'removed all webhooks'
+}
+// Runs createHook function on the chosen, member (defaults to me, and every boardn.
 // Then runs updateCard function on every card
 function start(AUTH, CALLBACK_URL, USER) {
     // Get users "me" boards and return url's to get all cards
@@ -131,4 +143,5 @@ module.exports = { updateCard,
                    createHook,
                    start,
                    readBoardIds,
-                   writeUserIds };
+                   writeUserIds,
+                   removeAllWebhooks };
