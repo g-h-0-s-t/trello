@@ -6,8 +6,8 @@ It will add a hook to every new board from your chosen member, It then updates t
 ## Instructions
 To start, change the followg variables in trello.js.
 
-API_KEY - You can find it here: 
-TOKEN  - You can find it here
+API_KEY - You can find it here: https://trello.com/app-key
+TOKEN  - You can find it here: https://trello.com/1/authorize?expiration=never&scope=read,write,account&response_type=token&name=Server%20Token&key=[YOUR_KEY]
 CALLBACK_URL - 
 USER - Your member, defaults to "me" if not specified 
 
