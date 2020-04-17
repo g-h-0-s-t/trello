@@ -20,12 +20,12 @@ app.use(express.json())
 // Watch member for new board
 app.head('/api/notifications/boards', (req, res) => res.status(200).json({value: 'success'}))
 app.post('/api/notifications/boards', (req, res) => { 
-    req.action !== undefined ? req.action.createBoard ? trello.createHook(AUTH, URL, req.data.board.id) : res.json({'value': null}) : res.json({'value': null})
+    req.action !== undefined ? req.data.action.createBoard ? trello.createHook(AUTH, URL, req.data.board.id) : res.json({'value': null}) : res.json({'value': null})
 
 })
 // Watch boards for new cards
 app.head('/api/notifications/cards', (req, res) => res.status(200).json({value: 'success'}))
-app.post('/api/notifications/cards', (req, res) => !req.action.createCard ? trello.updateCard(AUTH, req.data.card) : res.json({'value': null}))
+app.post('/api/notifications/cards', (req, res) => !req.data.action.createCard ? trello.updateCard(AUTH, req.data.card) : res.json({'value': null}))
 
 app.get('/api/webhooks', (req, res) => res.status(200).json({value: trello.readBoardIds()}))
 app.listen(port)
