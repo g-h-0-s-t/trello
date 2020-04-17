@@ -24,7 +24,7 @@ function getBoardIds(AUTH, CALLBACK_URL, member='me') {
     return axios.get(url)
         .then(res => {
             // Creates a webhook on the member
-             res.data.id in readUserIds() ? false : createHook(AUTH, CALLBACK_URL + '/api/notifications/boards', res.data.id, writeUserIds);
+             res.data.id in readUserIds() ? false : createHook(AUTH, CALLBACK_URL + '/api/notifications/boards', res.data.id, writeFunc=writeUserIds);
              return res.data.idBoards;
         })
          .catch(err => console.error(err))
