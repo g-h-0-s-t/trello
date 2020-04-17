@@ -32,7 +32,7 @@ function getBoardIds(AUTH, CALLBACK_URL, member='me') {
 
 function boardIdsToRequests(AUTH, board_ids) {
     let a = board_ids.map( boards => {
-        `/boards/${ boards in readBoardIds() ? boards : createHook(AUTH, URL + '/api/notifications/boards', boards, writeBoardIds)}/cards`;
+        return `/boards/${ boards in readBoardIds() ? boards : createHook(AUTH, URL + '/api/notifications/boards', boards, writeBoardIds)}/cards`;
     }); 
 
     console.log(a)
@@ -40,6 +40,7 @@ function boardIdsToRequests(AUTH, board_ids) {
 }
 // gets the card objects from a board, uses batch to save api calls
 function getCards(AUTH, requests) {
+    console.log(`requests is ${requests}`)
     const url = 'https://api.trello.com/1/batch?urls=';
     return axios.get(url + `${requests.join(',')}&${AUTH}`)
      .then(res => { return res.data.map(data => data['200'] )})
@@ -103,6 +104,7 @@ function createHook(AUTH, CALLBACK_URL, watch, writeFunc) {
           })
     
     writeFunc(watch);
+    console.log(`watch is ${watch}`)
     return watch;
 };
 
