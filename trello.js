@@ -102,9 +102,8 @@ function createHook(AUTH, CALLBACK_URL, watch, writeFunc) {
          .catch(err => {
              console.log(handleErrors(err));
           })
-    
+    console.log(writeFunc)
     writeFunc(watch);
-    console.log(`watch is ${watch}`)
     return watch;
 };
 
