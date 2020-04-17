@@ -130,4 +130,5 @@ function start(AUTH, CALLBACK_URL, USER) {
 module.exports = { updateCard,
                    createHook,
                    start,
-                   readBoardIds, };
+                   readBoardIds,
+                   writeUserIds };

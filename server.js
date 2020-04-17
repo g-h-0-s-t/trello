@@ -21,7 +21,7 @@ app.get('/api/start', (req, res) => {
 
 // Watch member for new board
 app.head('/api/notifications/boards', (req, res) => res.status(200).json({value: 'success'}))
-app.post('/api/notifications/boards', (req, res) => { req.body.action.type === 'createBoard' ? trello.createHook(AUTH, URL, req.body.action.data.board.id, writeUserIds) : res.json({'value': null}) })
+app.post('/api/notifications/boards', (req, res) => { req.body.action.type === 'createBoard' ? trello.createHook(AUTH, URL, req.body.action.data.board.id, trello.writeUserIds) : res.json({'value': null}) })
 // Watch boards for new cards
 app.head('/api/notifications/cards', (req, res) => res.status(200).json({value: 'success'}))
 app.post('/api/notifications/cards', (req, res) => req.body.action.type == 'createCard' ? trello.updateCard(AUTH, req.body.action.data.card) : res.json({'value': null}))
