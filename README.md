@@ -16,4 +16,4 @@ Finally, Send a GET request to [/api/start/] which does the above, it only needs
 
 
 Member and Board id's are saved in ./ids. To prevent wasted trello api calls always backup the files.
-To clear all the webhooks associated with your token send a DELETE request to [/api/webhook].
+To clear all the webhooks associated with your token, and the ids folder send a DELETE request to [/api/webhook].
