@@ -128,6 +128,9 @@ function removeAllWebhooksFromTrello(AUTH, TOKEN){
 function removeAllWebhooks(AUTH, TOKEN, filenames=['board_ids', 'user_ids']) {
     removeAllWebhooksFromFiles(filenames)
     removeAllWebhooksFromTrello(AUTH, TOKEN)
+
+
+    return 'removed all webhooks'
 }
 // Runs createHook function on the chosen, member (defaults to me, and every boardn.
 // Then runs updateCard function on every card
