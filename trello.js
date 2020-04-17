@@ -109,13 +109,12 @@ function removeAllWebhooks(AUTH, TOKEN){
     const url = `https://api.trello.com/1/webhooks?${AUTH}`;
     const webhooks = axios.get(`https://api.trello.come/1/token/${TOKEN}/webhooks?${AUTH}`).then(res => { return res.data }).catch(err => console.log(handleErrors(err)))
 
-    console.log(webhooks)
-    webhooks.forEach( webhook => {
+    webhooks.then(webhooks => forEach( webhook => {
         axios.delete(url + webhook.id)
         .then(res => console.log(`deleted - ${res.data.id}`))
          .catch(err => console.log(handleErrors(err)))
-    })
-
+        })
+    )
     return 'removed all webhooks'
 }
 // Runs createHook function on the chosen, member (defaults to me, and every boardn.
