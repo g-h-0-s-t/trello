@@ -78,7 +78,7 @@ function writeIdIntoJson(filename, readFunc, id) {
 function readUserIds() { return readJson('user_ids.json'); }
 function readBoardIds() { return readJson('board_ids.json'); }
 
-function writeUserIds(id) { writeIdIntoJson('users_ids.json', readUserIds, id); }
+function writeUserIds(id) { writeIdIntoJson('user_ids.json', readUserIds, id); }
 function writeBoardIds(id) { writeIdIntoJson('board_ids.json', readBoardIds, id); }
 
 
