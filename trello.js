@@ -155,6 +155,7 @@ function start(AUTH, CALLBACK_URL, USER) {
 module.exports = { updateCard,
                    createHook,
                    start,
+                   readUserIds,
                    readBoardIds,
                    writeUserIds,
                    removeAllWebhooks,};

@@ -25,8 +25,8 @@ app.post('/api/notifications/boards', (req, res) => { req.body.action.type === '
 // Watch boards for new cards
 app.head('/api/notifications/cards', (req, res) => res.status(200).json({value: 'success'}))
 app.post('/api/notifications/cards', (req, res) => req.body.action.type == 'createCard' ? trello.updateCard(AUTH, req.body.action.data.card) : res.json({'value': null}))
-
-app.get('/api/webhooks', (req, res) => res.status(200).json({value: trello.readBoardIds()}))
+// These return modelIds not webhook ids
+app.get('/api/webhooks', (req, res) => res.status(200).json({value: {users: trello.readUserId, boards: trello.readBoardIds()} }))
 app.delete('/api/webhooks', (req, res) => res.status(200).json({value: trello.removeAllWebhooks(AUTH, TOKEN)}))
 
 
