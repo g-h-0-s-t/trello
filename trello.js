@@ -105,17 +105,29 @@ function createHook(AUTH, CALLBACK_URL, watch, writeFunc) {
     return watch;
 };
 
-function removeAllWebhooks(AUTH, TOKEN){
+
+function removeAllWebhooksFromFile (filename) {
+    fs.writeFileSync(`./ids/${filename}`, JSON.stringify({"ids": []}))
+}
+
+function removeAllWebhooksFromFiles(filenames) {
+    filenames.forEach(filename => removeAllWebhooksFromFile(filename))
+}
+
+function removeAllWebhooksFromTrello(AUTH, TOKEN){
     const url = `https://api.trello.com/1/webhooks?${AUTH}`;
     const webhooks = axios.get(`https://api.trello.come/1/token/${TOKEN}/webhooks?${AUTH}`).then(res => { return res.data }).catch(err => console.log(handleErrors(err)))
 
-    webhooks.then(webhooks => forEach( webhook => {
+    webhooks.then(webhooks => webhooks.forEach( webhook => {
         axios.delete(url + webhook.id)
         .then(res => console.log(`deleted - ${res.data.id}`))
          .catch(err => console.log(handleErrors(err)))
         })
     )
-    return 'removed all webhooks'
+}
+function removeAllWebhooks(AUTH, TOKEN, filenames=['board_ids', 'user_ids']) {
+    removeAllWebhooksFromFiles(filenames)
+    removeAllWebhooksFromTrello(AUTH, TOKEN)
 }
 // Runs createHook function on the chosen, member (defaults to me, and every boardn.
 // Then runs updateCard function on every card
