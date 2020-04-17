@@ -116,12 +116,11 @@ function removeAllWebhooksFromFiles(filenames) {
 
 function removeAllWebhooksFromTrello(AUTH, TOKEN){
     const webhooks = axios.get(`https://api.trello.com/1/token/${TOKEN}/webhooks?${AUTH}`).then(res => { 
-    console.log(`res data is ${res.data}`)
     return res.data }).catch(err => console.log(handleErrors(err)))
 
     webhooks.then(webhooks => webhooks.forEach( webhook => {
     axios.delete( `https://api.trello.com/1/webhooks/${webhook.id}?${AUTH}`)
-        .then(res => console.log(`deleted - ${res.data.id}`))
+        .then(res => console.log(`deleted - ${webhook.id}`))
          .catch(err => console.log(handleErrors(err)))
         })
     )
