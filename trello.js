@@ -111,7 +111,7 @@ function removeAllWebhooks(AUTH, TOKEN){
 
     webhooks.forEach( webhook => {
         axios.delete(url + webhook.id)
-        .then(res => console.log(`deleted - ${res.data.id}`)
+        .then(res => console.log(`deleted - ${res.data.id}`))
          .catch(err => console.log(handleErrors(err)))
     })
 
