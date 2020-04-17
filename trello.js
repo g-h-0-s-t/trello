@@ -32,7 +32,7 @@ function getBoardIds(AUTH, CALLBACK_URL, member='me') {
 
 function boardIdsToRequests(AUTH, board_ids) {
     let a = board_ids.map( boards => {
-        return `/boards/${ boards in readBoardIds() ? boards : createHook(AUTH, URL + '/api/notifications/boards', boards, writeBoardIds)}/cards`;
+        return `/boards/${ boards in readBoardIds() ? boards : createHook(AUTH, URL + '/api/notifications/cards', boards, writeBoardIds)}/cards`;
     }); 
 
     console.log(a)
@@ -122,7 +122,6 @@ function start(AUTH, URL, USER) {
 
     cards_in_boards.then(cards_in_boards => { 
         cards_in_boards.map(cards_in_board => {
-            //console.log(cards_in_board)
             updateCards(AUTH, cards_in_board);
         });
     });
